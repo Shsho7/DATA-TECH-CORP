@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data-Tech Corp | Solicitudes de soporte</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+</head>
+<body>
+<header class="encabezado"><div class="contenedor">
+<h1>Data-Tech Corp</h1><p>Sistema de Gestión de Solicitudes de Soporte Técnico</p>
+</div></header>
+<main class="contenedor contenido">
+<section class="panel">
+<h2>Registrar solicitud</h2>
+{% with mensajes = get_flashed_messages() %}
+{% if mensajes %}{% for mensaje in mensajes %}<p class="mensaje">{{ mensaje }}</p>{% endfor %}{% endif %}
+{% endwith %}
+<form method="POST">
+<label for="titulo">Título del problema</label>
+<input type="text" id="titulo" name="titulo" required>
+<label for="descripcion">Descripción</label>
+<textarea id="descripcion" name="descripcion" rows="4" required></textarea>
+<label for="prioridad">Prioridad</label>
+<select id="prioridad" name="prioridad">
+<option value="baja">Baja</option><option value="media" selected>Media</option><option value="alta">Alta</option>
+</select>
+<button type="submit">Guardar solicitud</button>
+</form></section>
+<section class="panel"><h2>Solicitudes registradas</h2>
+{% if solicitudes %}
+<div class="tabla-contenedor"><table><thead><tr><th>Número</th><th>Título</th><th>Prioridad</th><th>Estado</th></tr></thead><tbody>
+{% for solicitud in solicitudes %}<tr><td>{{ solicitud["id"] }}</td><td>{{ solicitud["titulo"] }}</td><td>{{ solicitud["prioridad"]|capitalize }}</td><td>{{ solicitud["estado"]|capitalize }}</td></tr>{% endfor %}
+</tbody></table></div>
+{% else %}<p>Todavía no hay solicitudes registradas.</p>{% endif %}
+</section></main>
+<footer><p>Data-Tech Corp – Proyecto académico</p></footer>
+</body></html>
