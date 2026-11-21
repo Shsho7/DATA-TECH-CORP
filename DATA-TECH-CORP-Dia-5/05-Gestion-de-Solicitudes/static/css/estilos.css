@@ -1,0 +1,8 @@
+body{margin:0;padding:25px;font-family:Arial,sans-serif;background:#f2f4f7;color:#263238}
+.contenedor{max-width:950px;margin:0 auto;background:white;padding:25px;border-radius:8px}
+h1{color:#24476b}table{width:100%;border-collapse:collapse;margin-top:20px}
+th,td{border:1px solid #d5dce3;padding:10px;text-align:left}th{background:#e8eef5}
+a{color:#145a8d}.tarjeta{border:1px solid #d5dce3;padding:18px;border-radius:6px;margin-top:15px}
+label{display:block;margin-bottom:8px}select,button{padding:9px;margin-right:8px}
+button{background:#24476b;color:white;border:0;border-radius:4px;cursor:pointer}
+@media(max-width:650px){body{padding:10px}.contenedor{padding:15px}.tabla-contenedor{overflow-x:auto}}

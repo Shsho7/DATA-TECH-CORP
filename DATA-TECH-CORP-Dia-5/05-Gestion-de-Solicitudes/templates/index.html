@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solicitudes - Data-Tech Corp</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+</head>
+<body><main class="contenedor">
+<h1>Data-Tech Corp</h1><h2>Solicitudes de soporte técnico</h2>
+<p>Consulta las solicitudes registradas y abre una para ver sus detalles.</p>
+{% if solicitudes %}
+<div class="tabla-contenedor"><table><thead><tr><th>Número</th><th>Título</th><th>Prioridad</th><th>Estado</th><th>Detalles</th></tr></thead><tbody>
+{% for solicitud in solicitudes %}
+<tr><td>{{ solicitud["id"] }}</td><td>{{ solicitud["titulo"] }}</td><td>{{ solicitud["prioridad"] }}</td><td>{{ solicitud["estado"] }}</td><td><a href="{{ url_for('detalle_solicitud', solicitud_id=solicitud['id']) }}">Ver solicitud</a></td></tr>
+{% endfor %}
+</tbody></table></div>
+{% else %}<p>No hay solicitudes registradas.</p>{% endif %}
+</main></body></html>

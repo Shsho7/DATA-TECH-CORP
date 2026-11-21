@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detalle - Data-Tech Corp</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+</head>
+<body><main class="contenedor">
+<h1>Detalle de la solicitud</h1>
+<section class="tarjeta">
+<p><strong>Número:</strong> {{ solicitud["id"] }}</p>
+<h2>{{ solicitud["titulo"] }}</h2>
+<p><strong>Descripción:</strong> {{ solicitud["descripcion"] }}</p>
+<p><strong>Prioridad:</strong> {{ solicitud["prioridad"] }}</p>
+<p><strong>Estado actual:</strong> {{ solicitud["estado"] }}</p>
+<h3>Actualizar estado</h3>
+<form method="POST" action="{{ url_for('actualizar_solicitud', solicitud_id=solicitud['id']) }}">
+<label for="estado">Nuevo estado:</label>
+<select name="estado" id="estado" required>
+<option value="pendiente" {% if solicitud["estado"] == "pendiente" %}selected{% endif %}>Pendiente</option>
+<option value="en progreso" {% if solicitud["estado"] == "en progreso" %}selected{% endif %}>En progreso</option>
+<option value="completada" {% if solicitud["estado"] == "completada" %}selected{% endif %}>Completada</option>
+</select><button type="submit">Guardar cambio</button>
+</form></section>
+<p><a href="{{ url_for('inicio') }}">Volver a la lista de solicitudes</a></p>
+</main></body></html>
