@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detalle de solicitud</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+</head>
+<body>
+<main class="contenedor">
+<h1>Detalle de la solicitud</h1>
+{% with mensajes = get_flashed_messages() %}
+{% if mensajes %}{% for mensaje in mensajes %}<p class="mensaje">{{ mensaje }}</p>{% endfor %}{% endif %}
+{% endwith %}
+<section class="panel">
+<h2>{{ solicitud['titulo'] }}</h2>
+<p>{{ solicitud['descripcion'] }}</p>
+<p>Prioridad: {{ solicitud['prioridad']|capitalize }}</p>
+<p>Estado actual: {{ solicitud['estado']|capitalize }}</p>
+<form method="POST" action="{{ url_for('actualizar', solicitud_id=solicitud['id']) }}">
+<label>Actualizar estado</label>
+<select name="estado">
+{% for opcion in ["pendiente", "en progreso", "completada"] %}
+<option value="{{ opcion }}" {% if solicitud['estado'] == opcion %}selected{% endif %}>{{ opcion|capitalize }}</option>
+{% endfor %}
+</select>
+<button type="submit">Guardar cambio</button>
+</form>
+<p><a href="{{ url_for('inicio') }}">Volver a las solicitudes</a></p>
+</section>
+</main>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data-Tech Corp - Solicitudes</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+</head>
+<body>
+<main class="contenedor">
+<h1>Data-Tech Corp</h1>
+<h2>Sistema de Gestión de Solicitudes</h2>
+{% with mensajes = get_flashed_messages() %}
+{% if mensajes %}{% for mensaje in mensajes %}<p class="mensaje">{{ mensaje }}</p>{% endfor %}{% endif %}
+{% endwith %}
+<section class="panel">
+<h3>Registrar solicitud</h3>
+<form method="POST">
+<label>Título</label><input type="text" name="titulo" required>
+<label>Descripción</label><textarea name="descripcion" required></textarea>
+<label>Prioridad</label>
+<select name="prioridad">
+<option value="baja">Baja</option><option value="media" selected>Media</option><option value="alta">Alta</option>
+</select>
+<button type="submit">Guardar solicitud</button>
+</form>
+</section>
+<section class="panel">
+<h3>Buscar y filtrar solicitudes</h3>
+<form method="GET">
+<label>Buscar por título</label><input type="text" name="busqueda" value="{{ busqueda }}">
+<label>Estado</label>
+<select name="estado">
+<option value="">Todos</option>
+{% for opcion in ["pendiente", "en progreso", "completada"] %}
+<option value="{{ opcion }}" {% if estado == opcion %}selected{% endif %}>{{ opcion|capitalize }}</option>
+{% endfor %}
+</select>
+<label>Prioridad</label>
+<select name="prioridad">
+<option value="">Todas</option>
+{% for opcion in ["baja", "media", "alta"] %}
+<option value="{{ opcion }}" {% if prioridad == opcion %}selected{% endif %}>{{ opcion|capitalize }}</option>
+{% endfor %}
+</select>
+<button type="submit">Aplicar filtros</button>
+<a href="{{ url_for('inicio') }}">Limpiar filtros</a>
+</form>
+</section>
+<section class="panel">
+<h3>Solicitudes registradas</h3>
+{% if solicitudes %}
+{% for solicitud in solicitudes %}
+<article class="solicitud">
+<h4>{{ solicitud['titulo'] }}</h4>
+<p>Prioridad: {{ solicitud['prioridad']|capitalize }}</p>
+<p>Estado: {{ solicitud['estado']|capitalize }}</p>
+<a href="{{ url_for('detalle', solicitud_id=solicitud['id']) }}">Ver detalles</a>
+</article>
+{% endfor %}
+{% else %}<p>No se encontraron solicitudes con esos criterios.</p>{% endif %}
+</section>
+</main>
+</body>
+</html>
