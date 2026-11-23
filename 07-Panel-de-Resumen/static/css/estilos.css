@@ -1,0 +1,50 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f3f5f7;
+    color: #263238;
+}
+.contenedor {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 20px;
+}
+h1, h2 { color: #23445c; }
+.panel, .tarjeta {
+    background: white;
+    padding: 18px;
+    margin: 16px 0;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px #d5dadd;
+}
+.resumen {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+}
+.tarjeta span, .tarjeta strong { display: block; }
+.tarjeta strong { font-size: 28px; margin-top: 8px; color: #23445c; }
+label { display: block; margin: 10px 0; }
+input, textarea, select {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 9px;
+    margin-top: 5px;
+    border: 1px solid #bdc7ce;
+    border-radius: 5px;
+}
+textarea { min-height: 75px; }
+button {
+    padding: 10px 16px;
+    border: 0;
+    border-radius: 5px;
+    background: #315d78;
+    color: white;
+    cursor: pointer;
+}
+a { color: #245d83; }
+.solicitud { border-top: 1px solid #e0e5e8; padding: 10px 0; }
+@media (min-width: 650px) {
+    .filtros { display: grid; grid-template-columns: 2fr 1fr 1fr auto auto; gap: 12px; align-items: end; }
+}

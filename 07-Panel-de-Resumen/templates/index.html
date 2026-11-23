@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Data-Tech Corp. | Solicitudes</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+</head>
+<body>
+<main class="contenedor">
+  <h1>Data-Tech Corp.</h1>
+  <h2>Panel de solicitudes de soporte técnico</h2>
+
+  <section class="resumen">
+    <article class="tarjeta"><span>Total</span><strong>{{ resumen.total }}</strong></article>
+    <article class="tarjeta"><span>Pendientes</span><strong>{{ resumen.pendientes }}</strong></article>
+    <article class="tarjeta"><span>En progreso</span><strong>{{ resumen.progreso }}</strong></article>
+    <article class="tarjeta"><span>Completadas</span><strong>{{ resumen.completadas }}</strong></article>
+    <article class="tarjeta"><span>Prioridad alta</span><strong>{{ resumen.prioridad_alta }}</strong></article>
+  </section>
+
+  <section class="panel">
+    <h3>Registrar solicitud</h3>
+    <form method="post">
+      <label>Título <input name="titulo" required></label>
+      <label>Descripción <textarea name="descripcion" required></textarea></label>
+      <label>Prioridad
+        <select name="prioridad">
+          <option value="baja">Baja</option>
+          <option value="media" selected>Media</option>
+          <option value="alta">Alta</option>
+        </select>
+      </label>
+      <button type="submit">Guardar solicitud</button>
+    </form>
+  </section>
+
+  <section class="panel">
+    <h3>Buscar y filtrar solicitudes</h3>
+    <form method="get" class="filtros">
+      <label>Buscar por título <input name="busqueda" value="{{ busqueda }}"></label>
+      <label>Estado
+        <select name="estado">
+          <option value="">Todos</option>
+          {% for opcion in ['pendiente', 'en progreso', 'completada'] %}
+          <option value="{{ opcion }}" {% if estado == opcion %}selected{% endif %}>{{ opcion|title }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label>Prioridad
+        <select name="prioridad">
+          <option value="">Todas</option>
+          {% for opcion in ['baja', 'media', 'alta'] %}
+          <option value="{{ opcion }}" {% if prioridad == opcion %}selected{% endif %}>{{ opcion|title }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <button type="submit">Aplicar filtros</button>
+      <a href="{{ url_for('inicio') }}">Limpiar</a>
+    </form>
+  </section>
+
+  <section class="panel">
+    <h3>Solicitudes registradas</h3>
+    {% if solicitudes %}
+      {% for solicitud in solicitudes %}
+      <article class="solicitud">
+        <h4>{{ solicitud['titulo'] }}</h4>
+        <p>Prioridad: {{ solicitud['prioridad'] }} | Estado: {{ solicitud['estado'] }}</p>
+        <a href="{{ url_for('detalle', solicitud_id=solicitud['id']) }}">Ver detalles</a>
+      </article>
+      {% endfor %}
+    {% else %}
+      <p>No se encontraron solicitudes.</p>
+    {% endif %}
+  </section>
+</main>
+</body>
+</html>
